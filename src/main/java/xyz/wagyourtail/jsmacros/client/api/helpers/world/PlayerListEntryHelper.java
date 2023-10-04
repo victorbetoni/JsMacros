@@ -75,7 +75,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerListEntry> {
      * @since 1.8.4
      */
     public boolean hasCape() {
-        return base.hasCape();
+        return base.getSkinTextures().capeTexture() != null;
     }
 
     /**
@@ -85,7 +85,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerListEntry> {
      * @since 1.8.4
      */
     public boolean hasSlimModel() {
-        return base.getModel().equals("slim");
+        return base.getSkinTextures().model().getName().equals("slim");
     }
 
     /**
@@ -93,7 +93,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerListEntry> {
      * @since 1.8.4
      */
     public String getSkinTexture() {
-        return base.getSkinTexture() == null ? null : base.getSkinTexture().toString();
+        return base.getSkinTextures().texture() == null ? null : base.getSkinTextures().texture().toString();
     }
 
     /**
@@ -101,7 +101,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerListEntry> {
      * @since 1.8.4
      */
     public String getCapeTexture() {
-        return base.getCapeTexture() == null ? null : base.getCapeTexture().toString();
+        return base.getSkinTextures().capeTexture() == null ? null : base.getSkinTextures().capeTexture().toString();
     }
 
     /**
@@ -109,7 +109,7 @@ public class PlayerListEntryHelper extends BaseHelper<PlayerListEntry> {
      * @since 1.8.4
      */
     public String getElytraTexture() {
-        return base.getElytraTexture() == null ? null : base.getElytraTexture().toString();
+        return base.getSkinTextures().elytraTexture() == null ? null : base.getSkinTextures().elytraTexture().toString();
     }
 
     /**

@@ -6,6 +6,7 @@ import net.minecraft.advancement.criterion.CriterionProgress;
 import xyz.wagyourtail.jsmacros.client.mixins.access.MixinAdvancementProgress;
 import xyz.wagyourtail.jsmacros.core.helpers.BaseHelper;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class AdvancementProgressHelper extends BaseHelper<AdvancementProgress> {
      * @return a map of all criteria and their completion date.
      * @since 1.8.4
      */
-    public Map<String, Date> getCriteria() {
+    public Map<String, Instant> getCriteria() {
         return ((MixinAdvancementProgress) base).getCriteriaProgresses().entrySet().stream().filter(e -> e.getValue().getObtainedDate() != null).collect(Collectors.toMap(
                 Map.Entry::getKey,
                 criterionProgressEntry -> criterionProgressEntry.getValue().getObtainedDate()
@@ -69,7 +70,7 @@ public class AdvancementProgressHelper extends BaseHelper<AdvancementProgress> {
      * @since 1.8.4
      */
     public String getFraction() {
-        return base.getProgressBarFraction();
+        return base.getProgressBarFraction().getString();
     }
 
     /**
@@ -100,7 +101,7 @@ public class AdvancementProgressHelper extends BaseHelper<AdvancementProgress> {
      * @return the earliest completion date of all criteria.
      * @since 1.8.4
      */
-    public Date getEarliestProgressObtainDate() {
+    public Instant getEarliestProgressObtainDate() {
         return base.getEarliestProgressObtainDate();
     }
 
@@ -110,7 +111,7 @@ public class AdvancementProgressHelper extends BaseHelper<AdvancementProgress> {
      * yet.
      * @since 1.8.4
      */
-    public Date getCriterionProgress(String criteria) {
+    public Instant getCriterionProgress(String criteria) {
         CriterionProgress progress = base.getCriterionProgress(criteria);
         return progress == null ? null : progress.getObtainedDate();
     }

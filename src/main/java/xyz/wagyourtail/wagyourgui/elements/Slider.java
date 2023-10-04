@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.glfw.GLFW;
 
@@ -16,7 +17,7 @@ import java.util.function.Consumer;
  * @since 1.8.4
  */
 public class Slider extends ClickableWidget {
-
+    public static final Identifier WIDGETS_TEXTURE = new Identifier("textures/gui/widgets.png");
     private int steps;
     private double value;
     private final Consumer<Slider> action;

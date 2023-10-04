@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.client.gui.screen.recipebook.RecipeResultCollection;
 import net.minecraft.client.recipebook.RecipeBookGroup;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import org.jetbrains.annotations.Nullable;
 import xyz.wagyourtail.jsmacros.client.access.IRecipeBookResults;
@@ -136,7 +137,7 @@ public abstract class RecipeInventory<T extends HandledScreen<? extends Abstract
      * @since 1.8.4
      */
     public List<RecipeHelper> getRecipes(boolean craftable) throws InterruptedException {
-        Stream<Recipe<?>> recipes;
+        Stream<Object> recipes;
         RecipeBookResults res;
         IRecipeBookWidget recipeBookWidget = getRecipeBookWidget();
         if (recipeBookWidget == null) {
@@ -187,7 +188,7 @@ public abstract class RecipeInventory<T extends HandledScreen<? extends Abstract
             List<RecipeResultCollection> results = recipeBookWidget.jsmacros_getRecipeBook().getResultsForGroup(RecipeBookGroup.getGroups(handler.getCategory()).get(0));
             recipes = results.stream().filter(RecipeResultCollection::isInitialized).filter(RecipeResultCollection::hasFittingRecipes).flatMap(e -> e.getAllRecipes().stream());
         }
-        return recipes.map(e -> new RecipeHelper(e, syncId)).collect(Collectors.toList());
+        return recipes.map(e -> new RecipeHelper((RecipeEntry<?>) e, syncId)).collect(Collectors.toList());
     }
 
     @Nullable

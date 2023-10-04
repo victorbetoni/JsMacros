@@ -2,10 +2,7 @@ package xyz.wagyourtail.jsmacros.client.movement;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -89,8 +86,12 @@ public class MovementDummy extends LivingEntity {
         }
         this.setVelocity(velX, velY, velZ);
 
+        Box box = this.getBoundingBox(EntityPose.CROUCHING);
         /** Sneaking start **/
-        if (this.isSneaking() && this.wouldPoseNotCollide(EntityPose.CROUCHING)) {
+        double offsetX = box.maxX - box.minX;
+        double offsetY = box.maxY - box.minY;
+        double offsetZ = box.maxZ - box.minZ;
+        if (this.isSneaking() && !this.doesNotCollide(offsetX, offsetY, offsetZ)) {
             // Yeah this looks dumb, but that is the way minecraft does it
             currentInput.movementSideways = (float) ((double) currentInput.movementSideways * 0.3D);
             currentInput.movementForward = (float) ((double) currentInput.movementForward * 0.3D);

@@ -14,6 +14,8 @@ public interface MixinSpellcastingIllagerEntityHelper {
 
     // Don't make this static, it will disable the compile and reload feature!
     @Accessor("SPELL")
-    TrackedData<Byte> getSpellKey();
+    public static TrackedData<Byte> getSpellKey() {
+        throw new AssertionError();
+    }
 
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.ClickEvent;
@@ -661,7 +662,7 @@ public abstract class MixinScreen extends AbstractParentElement implements IScre
     public ButtonWidgetHelper<TexturedButtonWidget> addTexturedButton(int x, int y, int width, int height, int zIndex, int textureStartX, int textureStartY, int hoverOffset, String texture, int textureWidth, int textureHeight, MethodWrapper<ButtonWidgetHelper<TexturedButtonWidget>, IScreen, Object, ?> callback) {
         AtomicReference<ButtonWidgetHelper<TexturedButtonWidget>> ref = new AtomicReference<>(null);
 
-        TexturedButtonWidget texturedButton = new TexturedButtonWidget(x, y, width, height, textureStartX, textureStartY, hoverOffset, new Identifier(texture), textureWidth, textureHeight, (btn) -> {
+        TexturedButtonWidget texturedButton = new TexturedButtonWidget(x, y, width, height, new ButtonTextures(new Identifier(texture),new Identifier(texture)), (btn) -> {
             try {
                 callback.accept(ref.get(), this);
             } catch (Exception e) {
@@ -1000,10 +1001,10 @@ public abstract class MixinScreen extends AbstractParentElement implements IScre
     }
 
     @Override
-    public void jsmacros_mouseScrolled(double mouseX, double mouseY, double amount) {
+    public void jsmacros_mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (onScroll != null) {
             try {
-                onScroll.accept(new Pos2D(mouseX, mouseY), amount);
+                onScroll.accept(new Pos2D(mouseX, mouseY), horizontalAmount);
             } catch (Throwable e) {
                 Core.getInstance().profile.logError(e);
             }

@@ -5,7 +5,7 @@ license = "MPL-2.0"
 
 [[mods]]
 modId = "jsmacros"
-version = "${version}"
+version = "1.9.1"
 displayName = "JS Macros"
 authors = "Wagyourtail"
 description = '''

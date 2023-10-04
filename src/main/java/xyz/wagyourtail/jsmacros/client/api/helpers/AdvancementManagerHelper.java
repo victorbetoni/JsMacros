@@ -46,7 +46,7 @@ public class AdvancementManagerHelper extends BaseHelper<AdvancementManager> {
      * @since 1.8.4
      */
     public List<AdvancementHelper> getAdvancements() {
-        return base.getAdvancements().stream().map(AdvancementHelper::new).collect(Collectors.toList());
+        return base.getAdvancements().stream().map(x -> new AdvancementHelper(x.getAdvancement())).collect(Collectors.toList());
     }
 
     /**
@@ -81,7 +81,7 @@ public class AdvancementManagerHelper extends BaseHelper<AdvancementManager> {
      * @since 1.8.4
      */
     public List<AdvancementHelper> getRootAdvancements() {
-        return StreamSupport.stream(base.getRoots().spliterator(), false).map(AdvancementHelper::new).collect(Collectors.toList());
+        return StreamSupport.stream(base.getRoots().spliterator(), false).map(adv -> new AdvancementHelper(adv.getAdvancement())).collect(Collectors.toList());
     }
 
     /**
@@ -99,7 +99,7 @@ public class AdvancementManagerHelper extends BaseHelper<AdvancementManager> {
      */
     @DocletReplaceParams("identifier: AdvancementId")
     public AdvancementHelper getAdvancement(String identifier) {
-        return new AdvancementHelper(base.get(RegistryHelper.parseIdentifier(identifier)));
+        return new AdvancementHelper(base.get(RegistryHelper.parseIdentifier(identifier)).getAdvancement());
     }
 
     /**

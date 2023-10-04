@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.client.api.helpers.screen;
 
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.util.Identifier;
@@ -291,7 +292,7 @@ public class ButtonWidgetHelper<T extends ButtonWidget> extends ClickableWidgetH
         @Override
         public ButtonWidgetHelper<TexturedButtonWidget> createWidget() {
             AtomicReference<ButtonWidgetHelper<TexturedButtonWidget>> b = new AtomicReference<>(null);
-            TexturedButtonWidget button = new TexturedButtonWidget(getX(), getY(), getWidth(), getHeight(), u, v, hoverOffset, texture, textureWidth, textureHeight, btn -> {
+            TexturedButtonWidget butt = new TexturedButtonWidget(getX(), getY(), getWidth(), getHeight(), new ButtonTextures(texture, texture),btn -> {
                 try {
                     if (getAction() != null) {
                         getAction().accept(b.get(), screen);
@@ -300,7 +301,7 @@ public class ButtonWidgetHelper<T extends ButtonWidget> extends ClickableWidgetH
                     Core.getInstance().profile.logError(e);
                 }
             }, getMessage().getRaw());
-            b.set(new ButtonWidgetHelper(button, getZIndex()));
+            b.set(new ButtonWidgetHelper<>(butt, getZIndex()));
             return b.get();
         }
 

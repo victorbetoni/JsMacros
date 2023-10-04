@@ -14,6 +14,8 @@ public interface MixinTridentEntity {
 
     // Don't make this static, it will disable the compile and reload feature!
     @Accessor("LOYALTY")
-    TrackedData<Byte> getLoyalty();
+    static TrackedData<Byte> getLoyalty() {
+        throw new AssertionError();
+    }
 
 }

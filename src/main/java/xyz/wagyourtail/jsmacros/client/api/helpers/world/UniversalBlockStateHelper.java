@@ -144,7 +144,7 @@ public class UniversalBlockStateHelper extends BlockStateHelper {
      * @since 1.8.4
      */
     public String getWallMountLocation() {
-        return base.get(Properties.WALL_MOUNT_LOCATION).asString();
+        return base.get(Properties.BLOCK_FACE).asString();
     }
 
     /**

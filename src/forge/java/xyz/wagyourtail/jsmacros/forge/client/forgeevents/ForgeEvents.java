@@ -79,7 +79,7 @@ public class ForgeEvents {
     }
 
     public static void onScreenMouseScroll(ScreenEvent.MouseScrolled.Pre event) {
-        ((IScreenInternal) event.getScreen()).jsmacros_mouseScrolled(event.getMouseX(), event.getMouseY(), event.getScrollDelta());
+        ((IScreenInternal) event.getScreen()).jsmacros_mouseScrolled(event.getMouseX(), event.getMouseY(), event.getDeltaX(), event.getDeltaY());
     }
 
     public static void onScreenMouseDragged(ScreenEvent.MouseDragged.Pre event) {

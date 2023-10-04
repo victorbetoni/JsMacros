@@ -6,6 +6,7 @@ import net.minecraft.client.gui.hud.ChatHudLine;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.network.message.MessageSignatureData;
 import net.minecraft.text.Text;
+import net.minecraft.util.collection.ArrayListDeque;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,7 +35,7 @@ public abstract class MixinChatHud implements IChatHud {
     @Mutable
     @Shadow
     @Final
-    private List<String> messageHistory;
+    private ArrayListDeque<String> messageHistory;
 
     @Shadow
     @Final
@@ -42,7 +43,7 @@ public abstract class MixinChatHud implements IChatHud {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void onInit(MinecraftClient client, CallbackInfo ci) {
-        messageHistory = Collections.synchronizedList(messageHistory);
+        messageHistory = new ArrayListDeque<>();
     }
 
     @Override

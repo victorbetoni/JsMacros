@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.ClientStatusC2SPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.StatHandler;
 import net.minecraft.stat.StatType;
@@ -28,12 +29,15 @@ public class StatsHelper extends BaseHelper<StatHandler> {
     }
 
     public List<String> getStatList() {
-        return ((MixinStatHandler) base).getStatMap().keySet().stream().map(Stat::getType).map(StatType::getTranslationKey).collect(Collectors.toList());
+        return ((MixinStatHandler) base).getStatMap().keySet().stream().map(Stat::getType).map(x -> {
+            String var10000 = Registries.STAT_TYPE.get(x.getRegistry().getKey().getRegistry()).toString();
+            return "stat_type." + var10000.replace(':', '.');
+        }).collect(Collectors.toList());
     }
 
     public Text getStatText(String statKey) {
         for (Stat<?> stat : ImmutableSet.copyOf(((MixinStatHandler) base).getStatMap().keySet())) {
-            if (stat.getType().getTranslationKey().equals(statKey)) {
+            if (stat.getType().getRegistry().getKey().getRegistry().toString().equals(statKey)) {
                 return stat.getType().getName();
             }
         }
@@ -42,7 +46,7 @@ public class StatsHelper extends BaseHelper<StatHandler> {
 
     public int getRawStatValue(String statKey) {
         for (Stat<?> stat : ImmutableSet.copyOf(((MixinStatHandler) base).getStatMap().keySet())) {
-            if (stat.getType().getTranslationKey().equals(statKey)) {
+            if (stat.getType().getRegistry().getKey().getRegistry().toString().equals(statKey)) {
                 return base.getStat(stat);
             }
         }
@@ -51,7 +55,7 @@ public class StatsHelper extends BaseHelper<StatHandler> {
 
     public String getFormattedStatValue(String statKey) {
         for (Stat<?> stat : ImmutableSet.copyOf(((MixinStatHandler) base).getStatMap().keySet())) {
-            if (stat.getType().getTranslationKey().equals(statKey)) {
+            if (stat.getType().getRegistry().getKey().getRegistry().toString().equals(statKey)) {
                 return stat.format(base.getStat(stat));
             }
         }
@@ -61,7 +65,7 @@ public class StatsHelper extends BaseHelper<StatHandler> {
     public Map<String, String> getFormattedStatMap() {
         Map<String, String> map = new HashMap<>();
         for (Stat<?> stat : ImmutableSet.copyOf(((MixinStatHandler) base).getStatMap().keySet())) {
-            map.put(stat.getType().getTranslationKey(), stat.format(base.getStat(stat)));
+            map.put(stat.getType().getRegistry().getKey().getRegistry().toString(), stat.format(base.getStat(stat)));
         }
         return map;
     }
@@ -69,7 +73,7 @@ public class StatsHelper extends BaseHelper<StatHandler> {
     public Map<String, Integer> getRawStatMap() {
         Map<String, Integer> map = new HashMap<>();
         for (Stat<?> stat : ImmutableSet.copyOf(((MixinStatHandler) base).getStatMap().keySet())) {
-            map.put(stat.getType().getTranslationKey(), base.getStat(stat));
+            map.put(stat.getType().getRegistry().getKey().getRegistry().toString(), base.getStat(stat));
         }
         return map;
     }

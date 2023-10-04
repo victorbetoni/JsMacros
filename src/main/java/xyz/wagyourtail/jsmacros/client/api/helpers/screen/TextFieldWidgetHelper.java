@@ -172,8 +172,8 @@ public class TextFieldWidgetHelper extends ClickableWidgetHelper<TextFieldWidget
      * @return self for chaining.
      * @since 1.8.4
      */
-    public TextFieldWidgetHelper setCursorPosition(int position) {
-        base.setCursor(position);
+    public TextFieldWidgetHelper setCursorPosition(int position, boolean shiftKey) {
+        base.setCursor(position, shiftKey);
         return this;
     }
 
@@ -182,7 +182,7 @@ public class TextFieldWidgetHelper extends ClickableWidgetHelper<TextFieldWidget
      * @since 1.8.4
      */
     public TextFieldWidgetHelper setCursorToStart() {
-        base.setCursorToStart();
+        base.setCursorToStart(true);
         return this;
     }
 
@@ -191,7 +191,7 @@ public class TextFieldWidgetHelper extends ClickableWidgetHelper<TextFieldWidget
      * @since 1.8.4
      */
     public TextFieldWidgetHelper setCursorToEnd() {
-        base.setCursorToEnd();
+        base.setCursorToEnd(true);
         return this;
     }
 

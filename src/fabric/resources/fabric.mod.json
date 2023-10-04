@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "jsmacros",
-  "version": "${version}",
+  "version": "1.9.1",
   "name": "Js Macros",
   "description": "Javascript Macros for Fabric",
   "authors": [

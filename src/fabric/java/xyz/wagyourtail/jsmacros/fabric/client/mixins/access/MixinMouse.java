@@ -30,10 +30,10 @@ public class MixinMouse {
         ((IScreenInternal) screen).jsmacros_mouseDragged(x, y, activeButton, dx, dy);
     }
 
-    @Redirect(method = "onMouseScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;mouseScrolled(DDD)Z"))
-    private boolean onMouseScrolled(Screen instance, double x, double y, double amount) {
-        ((IScreenInternal) instance).jsmacros_mouseScrolled(x, y, amount);
-        return instance.mouseScrolled(x, y, amount);
+    @Redirect(method = "onMouseScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;mouseScrolled(DDDD)Z"))
+    private boolean onMouseScrolled(Screen instance, double x, double y, double horizontalAmount, double verticalAmount) {
+        ((IScreenInternal) instance).jsmacros_mouseScrolled(x, y, horizontalAmount, verticalAmount);
+        return instance.mouseScrolled(x, y, horizontalAmount, verticalAmount);
     }
 
 }
