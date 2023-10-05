@@ -26,7 +26,6 @@
     ]
   },
   "mixins": [
-    "jsmacros.mixins.json",
     "jsmacros-fabric.mixins.json"
   ],
   "depends": {
